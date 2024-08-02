@@ -10,10 +10,11 @@ import SwiftUI
 struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
-    @State private var isLoggedIn = false
     @State private var isLoginMode = true
     @State private var showMessage = false
     @State private var message = ""
+
+    @Binding var isUserLoggedIn: Bool
 
     var body: some View {
         GeometryReader { geometry in
@@ -33,7 +34,8 @@ struct LoginView: View {
                 Picker(selection: $isLoginMode, label: Text("Login Mode")) {
                     Text("Login").tag(true)
                     Text("Signup").tag(false)
-                }.pickerStyle(SegmentedPickerStyle())
+                }
+                .pickerStyle(SegmentedPickerStyle())
                 .padding()
 
                 TextField("Email", text: $email)
@@ -51,9 +53,9 @@ struct LoginView: View {
                 Button(action: {
                     self.showMessage = false
                     if isLoginMode {
-                        self.login()
+                        login()
                     } else {
-                        self.register()
+                        register()
                     }
                 }) {
                     Text(isLoginMode ? "Login" : "Signup")
@@ -66,7 +68,7 @@ struct LoginView: View {
 
                 if showMessage {
                     Text(message)
-                        .foregroundColor(isLoggedIn ? .green : .red)
+                        .foregroundColor(isUserLoggedIn ? .green : .red)
                 }
                 
                 Spacer()
@@ -80,13 +82,12 @@ struct LoginView: View {
             switch result {
             case .success(let user):
                 DispatchQueue.main.async {
-                    self.isLoggedIn = true
+                    self.isUserLoggedIn = true
                     self.message = "Logged in successfully! User ID: \(user.id)"
                     self.showMessage = true
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    self.isLoggedIn = false
                     self.message = "Login failed: \(error.localizedDescription)"
                     self.showMessage = true
                 }
@@ -99,13 +100,12 @@ struct LoginView: View {
             switch result {
             case .success(let user):
                 DispatchQueue.main.async {
-                    self.isLoggedIn = true
+                    self.isUserLoggedIn = true
                     self.message = "Registered successfully! User ID: \(user.id)"
                     self.showMessage = true
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    self.isLoggedIn = false
                     self.message = "Registration failed: \(error.localizedDescription)"
                     self.showMessage = true
                 }
@@ -114,9 +114,8 @@ struct LoginView: View {
     }
 }
 
-
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        LoginView(isUserLoggedIn: .constant(false))
     }
 }
