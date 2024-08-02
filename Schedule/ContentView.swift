@@ -76,61 +76,44 @@ struct LoginView: View {
     }
 
     func login() {
-        guard let url = URL(string: "http://localhost:8080/api/users/login") else { return }
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
-
-        let body: [String: String] = ["username": email, "password": password]
-        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
-
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data {
-                if let responseString = String(data: data, encoding: .utf8), responseString.contains("id") {
-                    DispatchQueue.main.async {
-                        self.isLoggedIn = true
-                        self.message = "Logged in successfully!"
-                        self.showMessage = true
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        self.isLoggedIn = false
-                        self.message = "Login failed."
-                        self.showMessage = true
-                    }
+        UserService.shared.login(email: email, password: password) { result in
+            switch result {
+            case .success(let user):
+                DispatchQueue.main.async {
+                    self.isLoggedIn = true
+                    self.message = "Logged in successfully! User ID: \(user.id)"
+                    self.showMessage = true
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.isLoggedIn = false
+                    self.message = "Login failed: \(error.localizedDescription)"
+                    self.showMessage = true
                 }
             }
-        }.resume()
+        }
     }
 
     func register() {
-        guard let url = URL(string: "http://localhost:8080/api/users/register") else { return }
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
-
-        let body: [String: String] = ["username": email, "password": password]
-        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
-
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data {
-                if let responseString = String(data: data, encoding: .utf8), responseString.contains("id") {
-                    DispatchQueue.main.async {
-                        self.isLoggedIn = true
-                        self.message = "Registered successfully!"
-                        self.showMessage = true
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        self.isLoggedIn = false
-                        self.message = "Registration failed."
-                        self.showMessage = true
-                    }
+        UserService.shared.register(email: email, password: password) { result in
+            switch result {
+            case .success(let user):
+                DispatchQueue.main.async {
+                    self.isLoggedIn = true
+                    self.message = "Registered successfully! User ID: \(user.id)"
+                    self.showMessage = true
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.isLoggedIn = false
+                    self.message = "Registration failed: \(error.localizedDescription)"
+                    self.showMessage = true
                 }
             }
-        }.resume()
+        }
     }
 }
+
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
