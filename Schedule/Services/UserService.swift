@@ -104,4 +104,34 @@ class UserService {
             completion(.success(user))
         }.resume()
     }
+
+    func logout(token: String, completion: @escaping (Result<Void, NetworkError>) -> Void) {
+        guard let url = URL(string: "\(baseURL)/logout") else {
+            completion(.failure(.badURL))
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let body: [String: String] = ["token": token]
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Logout error: \(error)")
+                completion(.failure(.requestFailed))
+                return
+            }
+
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 204 else {
+                completion(.failure(.invalidResponse))
+                return
+            }
+
+            completion(.success(()))
+        }.resume()
+    }
+
 }
