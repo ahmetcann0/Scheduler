@@ -9,8 +9,8 @@ import SwiftUI
 
 @main
 struct ScheduleApp: App {
-    @State private var isUserLoggedIn = false
-    @State private var userToken = ""
+    @AppStorage("isUserLoggedIn") private var isUserLoggedIn = false
+    @AppStorage("userToken") private var userToken = ""
 
     var body: some Scene {
         WindowGroup {

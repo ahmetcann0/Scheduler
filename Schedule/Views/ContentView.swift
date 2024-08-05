@@ -1,9 +1,7 @@
+// ContentView.swift
+// Schedule
 //
-//  ContentView.swift
-//  Schedule
-//
-//  Created by Ahmet Can Öztürk on 2.08.2024.
-//
+// Created by Ahmet Can Öztürk on 2.08.2024.
 
 import SwiftUI
 

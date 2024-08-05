@@ -33,6 +33,7 @@ struct HomeView: View {
             print("No token found")
             return
         }
+        
         UserService.shared.logout(token: token) { result in
             switch result {
             case .success:
@@ -46,15 +47,13 @@ struct HomeView: View {
             }
         }
     }
+}
+
+struct HomeView_Previews: PreviewProvider {
+    @State static var isUserLoggedIn = true
+    @State static var userToken = ""
     
-    
-    struct HomeView_Previews: PreviewProvider {
-        @State static var isUserLoggedIn = true
-        @State static var userToken = ""
-        
-        static var previews: some View {
-            HomeView(isUserLoggedIn: $isUserLoggedIn, userToken: $userToken)
-        }
+    static var previews: some View {
+        HomeView(isUserLoggedIn: $isUserLoggedIn, userToken: $userToken)
     }
-    
 }
