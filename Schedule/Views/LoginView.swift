@@ -26,7 +26,6 @@ struct LoginView: View {
                 .frame(width: 150, height: 150)
                 .padding()
 
-            Spacer()
             
             Picker(selection: $isLoginMode, label: Text("Login Mode")) {
                 Text("Login").tag(true)
@@ -39,13 +38,18 @@ struct LoginView: View {
                 .padding()
                 .background(Color(.secondarySystemBackground))
                 .cornerRadius(5)
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 10)
+                .autocapitalization(.none) // Büyük harfleri otomatik olarak düzelten özelliği kapatır
+                .disableAutocorrection(true) // Otomatik düzeltmeyi kapatır
+
             
             SecureField("Password", text: $password)
                 .padding()
                 .background(Color(.secondarySystemBackground))
                 .cornerRadius(5)
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 10)
+                .autocapitalization(.none) // Büyük harfleri otomatik olarak düzelten özelliği kapatır
+                .disableAutocorrection(true) // Otomatik düzeltmeyi kapatır
 
             Button(action: {
                 self.showMessage = false
