@@ -1,9 +1,8 @@
+// UserService.swift
+// Schedule
 //
-//  UserService.swift
-//  Schedule
-//
-//  Created by Ahmet Can Öztürk on 2.08.2024.
-//
+// Created by Ahmet Can Öztürk on 2.08.2024.
+
 import Foundation
 
 enum NetworkError: Error {
@@ -11,6 +10,11 @@ enum NetworkError: Error {
     case requestFailed
     case unknown
     case invalidResponse
+}
+
+struct LoginResponse: Codable {
+    let user: User
+    let token: String
 }
 
 class UserService {
@@ -53,12 +57,12 @@ class UserService {
                 print("Login Response Data: \(responseString)")
             }
 
-            guard let user = try? JSONDecoder().decode(User.self, from: data) else {
+            guard let loginResponse = try? JSONDecoder().decode(LoginResponse.self, from: data) else {
                 completion(.failure(.unknown))
                 return
             }
 
-            completion(.success(user))
+            completion(.success(loginResponse.user))
         }.resume()
     }
 
@@ -96,12 +100,12 @@ class UserService {
                 print("Register Response Data: \(responseString)")
             }
 
-            guard let user = try? JSONDecoder().decode(User.self, from: data) else {
+            guard let loginResponse = try? JSONDecoder().decode(LoginResponse.self, from: data) else {
                 completion(.failure(.unknown))
                 return
             }
 
-            completion(.success(user))
+            completion(.success(loginResponse.user))
         }.resume()
     }
 
@@ -133,5 +137,4 @@ class UserService {
             completion(.success(()))
         }.resume()
     }
-
 }

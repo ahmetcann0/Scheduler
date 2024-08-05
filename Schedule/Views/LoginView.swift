@@ -1,4 +1,4 @@
-//  ContentView.swift
+//  LoginView.swift
 //  Schedule
 //
 //  Created by Ahmet Can Öztürk on 27.07.2024.
@@ -92,7 +92,6 @@ struct LoginView: View {
             }
         }
     }
-
 
     func register() {
         UserService.shared.register(email: email, password: password) { result in
