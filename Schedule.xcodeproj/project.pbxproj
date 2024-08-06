@@ -8,25 +8,29 @@
 
 /* Begin PBXBuildFile section */
 		E128F0802C557D7B00C324A9 /* ScheduleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E128F07F2C557D7B00C324A9 /* ScheduleApp.swift */; };
-		E128F0822C557D7B00C324A9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E128F0812C557D7B00C324A9 /* LoginView.swift */; };
+		E128F0822C557D7B00C324A9 /* LoginRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E128F0812C557D7B00C324A9 /* LoginRegisterView.swift */; };
 		E128F0842C557D7C00C324A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E128F0832C557D7C00C324A9 /* Assets.xcassets */; };
 		E128F0872C557D7C00C324A9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E128F0862C557D7C00C324A9 /* Preview Assets.xcassets */; };
 		E16108602C5D78A600777C13 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E161085F2C5D78A600777C13 /* HomeView.swift */; };
 		E16108622C5D7AD000777C13 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16108612C5D7AD000777C13 /* ContentView.swift */; };
 		E1AE277B2C5D3B8800B58B34 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AE277A2C5D3B8800B58B34 /* User.swift */; };
 		E1AE277E2C5D3BFC00B58B34 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AE277D2C5D3BFC00B58B34 /* UserService.swift */; };
+		E1FBCF4D2C625CB800F46451 /* LoginRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FBCF4C2C625CB800F46451 /* LoginRegisterViewModel.swift */; };
+		E1FBCF4F2C625CD600F46451 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FBCF4E2C625CD600F46451 /* HomeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E128F07C2C557D7B00C324A9 /* Schedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Schedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E128F07F2C557D7B00C324A9 /* ScheduleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleApp.swift; sourceTree = "<group>"; };
-		E128F0812C557D7B00C324A9 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		E128F0812C557D7B00C324A9 /* LoginRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterView.swift; sourceTree = "<group>"; };
 		E128F0832C557D7C00C324A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E128F0862C557D7C00C324A9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E161085F2C5D78A600777C13 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		E16108612C5D7AD000777C13 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E1AE277A2C5D3B8800B58B34 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E1AE277D2C5D3BFC00B58B34 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		E1FBCF4C2C625CB800F46451 /* LoginRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterViewModel.swift; sourceTree = "<group>"; };
+		E1FBCF4E2C625CD600F46451 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +86,7 @@
 		E161085C2C5D77D600777C13 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E128F0812C557D7B00C324A9 /* LoginView.swift */,
+				E128F0812C557D7B00C324A9 /* LoginRegisterView.swift */,
 				E161085F2C5D78A600777C13 /* HomeView.swift */,
 				E16108612C5D7AD000777C13 /* ContentView.swift */,
 			);
@@ -92,6 +96,8 @@
 		E161085D2C5D77E000777C13 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				E1FBCF4C2C625CB800F46451 /* LoginRegisterViewModel.swift */,
+				E1FBCF4E2C625CD600F46451 /* HomeViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -189,8 +195,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1FBCF4D2C625CB800F46451 /* LoginRegisterViewModel.swift in Sources */,
 				E1AE277E2C5D3BFC00B58B34 /* UserService.swift in Sources */,
-				E128F0822C557D7B00C324A9 /* LoginView.swift in Sources */,
+				E1FBCF4F2C625CD600F46451 /* HomeViewModel.swift in Sources */,
+				E128F0822C557D7B00C324A9 /* LoginRegisterView.swift in Sources */,
 				E16108622C5D7AD000777C13 /* ContentView.swift in Sources */,
 				E128F0802C557D7B00C324A9 /* ScheduleApp.swift in Sources */,
 				E16108602C5D78A600777C13 /* HomeView.swift in Sources */,
