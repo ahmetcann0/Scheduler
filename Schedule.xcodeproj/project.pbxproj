@@ -17,6 +17,10 @@
 		E1AE277E2C5D3BFC00B58B34 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AE277D2C5D3BFC00B58B34 /* UserService.swift */; };
 		E1FBCF4D2C625CB800F46451 /* LoginRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FBCF4C2C625CB800F46451 /* LoginRegisterViewModel.swift */; };
 		E1FBCF4F2C625CD600F46451 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FBCF4E2C625CD600F46451 /* HomeViewModel.swift */; };
+		E1FBCF532C62759800F46451 /* ToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FBCF522C62759800F46451 /* ToDoListView.swift */; };
+		E1FBCF552C6275A500F46451 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FBCF542C6275A500F46451 /* ProfileView.swift */; };
+		E1FBCF572C6275C100F46451 /* ToDoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FBCF562C6275C100F46451 /* ToDoListViewModel.swift */; };
+		E1FBCF592C6275D100F46451 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FBCF582C6275D100F46451 /* ProfileViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +35,10 @@
 		E1AE277D2C5D3BFC00B58B34 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		E1FBCF4C2C625CB800F46451 /* LoginRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterViewModel.swift; sourceTree = "<group>"; };
 		E1FBCF4E2C625CD600F46451 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		E1FBCF522C62759800F46451 /* ToDoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListView.swift; sourceTree = "<group>"; };
+		E1FBCF542C6275A500F46451 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		E1FBCF562C6275C100F46451 /* ToDoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewModel.swift; sourceTree = "<group>"; };
+		E1FBCF582C6275D100F46451 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +97,8 @@
 				E128F0812C557D7B00C324A9 /* LoginRegisterView.swift */,
 				E161085F2C5D78A600777C13 /* HomeView.swift */,
 				E16108612C5D7AD000777C13 /* ContentView.swift */,
+				E1FBCF522C62759800F46451 /* ToDoListView.swift */,
+				E1FBCF542C6275A500F46451 /* ProfileView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -98,6 +108,8 @@
 			children = (
 				E1FBCF4C2C625CB800F46451 /* LoginRegisterViewModel.swift */,
 				E1FBCF4E2C625CD600F46451 /* HomeViewModel.swift */,
+				E1FBCF562C6275C100F46451 /* ToDoListViewModel.swift */,
+				E1FBCF582C6275D100F46451 /* ProfileViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -197,7 +209,11 @@
 			files = (
 				E1FBCF4D2C625CB800F46451 /* LoginRegisterViewModel.swift in Sources */,
 				E1AE277E2C5D3BFC00B58B34 /* UserService.swift in Sources */,
+				E1FBCF552C6275A500F46451 /* ProfileView.swift in Sources */,
 				E1FBCF4F2C625CD600F46451 /* HomeViewModel.swift in Sources */,
+				E1FBCF532C62759800F46451 /* ToDoListView.swift in Sources */,
+				E1FBCF572C6275C100F46451 /* ToDoListViewModel.swift in Sources */,
+				E1FBCF592C6275D100F46451 /* ProfileViewModel.swift in Sources */,
 				E128F0822C557D7B00C324A9 /* LoginRegisterView.swift in Sources */,
 				E16108622C5D7AD000777C13 /* ContentView.swift in Sources */,
 				E128F0802C557D7B00C324A9 /* ScheduleApp.swift in Sources */,
