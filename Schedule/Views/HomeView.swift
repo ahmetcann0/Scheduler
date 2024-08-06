@@ -7,17 +7,31 @@
 import SwiftUI
 
 struct HomeView: View {
+    @StateObject private var viewModel: HomeViewModel
+
+    init(isUserLoggedIn: Binding<Bool>, userToken: Binding<String>) {
+        _viewModel = StateObject(wrappedValue: HomeViewModel(isUserLoggedIn: isUserLoggedIn.wrappedValue, userToken: userToken.wrappedValue))
+        _isUserLoggedIn = isUserLoggedIn
+        _userToken = userToken
+    }
+
     @Binding var isUserLoggedIn: Bool
     @Binding var userToken: String
-    
+
     var body: some View {
         VStack {
-            Text("Welcome to the Homepage!")
-                .font(.largeTitle)
-                .padding()
-            
+            if let user = viewModel.user {
+                Text("Welcome, \(user.email)!")
+                    .font(.largeTitle)
+                    .padding()
+            } else {
+                Text("Welcome to the Homepage!")
+                    .font(.largeTitle)
+                    .padding()
+            }
+
             Button(action: {
-                logout()
+                viewModel.logout()
             }) {
                 Text("Logout")
                     .foregroundColor(.white)
@@ -26,33 +40,20 @@ struct HomeView: View {
                     .cornerRadius(10)
             }
         }
-    }
-    
-    func logout() {
-        guard let token = UserDefaults.standard.string(forKey: "userToken") else {
-            print("No token found")
-            return
+        .onChange(of: viewModel.isUserLoggedIn) {
+            isUserLoggedIn = viewModel.isUserLoggedIn
         }
-        
-        UserService.shared.logout(token: token) { result in
-            switch result {
-            case .success:
-                DispatchQueue.main.async {
-                    self.isUserLoggedIn = false
-                    self.userToken = ""
-                    UserDefaults.standard.removeObject(forKey: "userToken")
-                }
-            case .failure(let error):
-                print("Logout failed: \(error.localizedDescription)")
-            }
+        .onChange(of: viewModel.userToken) {
+            userToken = viewModel.userToken
         }
+
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
     @State static var isUserLoggedIn = true
     @State static var userToken = ""
-    
+
     static var previews: some View {
         HomeView(isUserLoggedIn: $isUserLoggedIn, userToken: $userToken)
     }
