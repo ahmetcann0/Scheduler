@@ -20,16 +20,7 @@ struct HomeView: View {
 
     var body: some View {
         VStack {
-            if let user = viewModel.user {
-                Text("Welcome, \(user.email)!")
-                    .font(.largeTitle)
-                    .padding()
-            } else {
-                Text("Welcome to the Homepage!")
-                    .font(.largeTitle)
-                    .padding()
-            }
-
+            
             Button(action: {
                 viewModel.logout()
             }) {
@@ -46,9 +37,20 @@ struct HomeView: View {
         .onChange(of: viewModel.userToken) {
             userToken = viewModel.userToken
         }
-
+        
+        TabView{
+            ToDoListView().tabItem {
+                Label("Home", systemImage: "house")
+            }
+            ProfileView().tabItem {
+                Label("Profil", systemImage: "person.circle")
+                }
+            }
+        }
+        
+        
     }
-}
+
 
 struct HomeView_Previews: PreviewProvider {
     @State static var isUserLoggedIn = true
