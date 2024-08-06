@@ -4,6 +4,11 @@
 //
 //  Created by Ahmet Can Öztürk on 2.08.2024.
 //
+// HomeView.swift
+// Schedule
+//
+// Created by Ahmet Can Öztürk on 2.08.2024.
+//
 import SwiftUI
 
 struct HomeView: View {
@@ -19,16 +24,12 @@ struct HomeView: View {
     @Binding var userToken: String
 
     var body: some View {
-        VStack {
-            
-            Button(action: {
-                viewModel.logout()
-            }) {
-                Text("Logout")
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.red)
-                    .cornerRadius(10)
+        TabView {
+            ToDoListView().tabItem {
+                Label("Home", systemImage: "house")
+            }
+            ProfileView(isUserLoggedIn: $isUserLoggedIn, userToken: $userToken).tabItem {
+                Label("Profile", systemImage: "person.circle")
             }
         }
         .onChange(of: viewModel.isUserLoggedIn) {
@@ -37,20 +38,8 @@ struct HomeView: View {
         .onChange(of: viewModel.userToken) {
             userToken = viewModel.userToken
         }
-        
-        TabView{
-            ToDoListView().tabItem {
-                Label("Home", systemImage: "house")
-            }
-            ProfileView().tabItem {
-                Label("Profil", systemImage: "person.circle")
-                }
-            }
-        }
-        
-        
     }
-
+}
 
 struct HomeView_Previews: PreviewProvider {
     @State static var isUserLoggedIn = true
