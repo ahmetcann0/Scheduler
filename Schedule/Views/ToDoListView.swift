@@ -5,11 +5,6 @@
 //  Created by Ahmet Can Öztürk on 6.08.2024.
 //
 
-//  ToDoListView.swift
-//  Schedule
-//
-//  Created by Ahmet Can Öztürk on 6.08.2024.
-//
 
 import SwiftUI
 
@@ -25,11 +20,14 @@ struct ToDoListView: View {
             .navigationTitle("Tasks")
             .toolbar {
                 Button {
-                    // Sheet Açma Kodları
+                    viewModel.showingNewItemView = true
                 } label: {
                     Image(systemName: "plus")
                 }
             }
+            .sheet(isPresented: $viewModel.showingNewItemView, content: {
+                NewItemView(newItemPresented: $viewModel.showingNewItemView)
+            })
         }
         .onAppear {
             viewModel.loadTasks(for: appState.userId)

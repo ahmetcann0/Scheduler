@@ -8,8 +8,13 @@
 import Foundation
 
 class ToDoListViewModel: ObservableObject {
-    //@Published var tasks: [Task] = []
-
+    
+    @Published var showingNewItemView = false
+    
+    init() {
+        
+    }
+    
     func loadTasks(for userId: String) {
         // Burada userId'yi kullanarak görevleri yükleyin
         print("Loading tasks for user ID: \(userId)")
