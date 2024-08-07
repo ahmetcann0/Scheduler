@@ -9,12 +9,12 @@ import SwiftUI
 
 @main
 struct ScheduleApp: App {
-    @AppStorage("isUserLoggedIn") private var isUserLoggedIn = false
-    @AppStorage("userToken") private var userToken = ""
+    @StateObject private var appState = AppState.shared
 
     var body: some Scene {
         WindowGroup {
-            ContentView(isUserLoggedIn: $isUserLoggedIn, userToken: $userToken)
+            ContentView()
+                .environmentObject(appState)
         }
     }
 }

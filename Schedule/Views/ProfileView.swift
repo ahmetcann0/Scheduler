@@ -9,8 +9,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @Binding var isUserLoggedIn: Bool
-    @Binding var userToken: String
+    @EnvironmentObject var appState: AppState
     @StateObject var viewModel = ProfileViewModel()
 
     var body: some View {
@@ -27,21 +26,12 @@ struct ProfileView: View {
                 }
             }
             .navigationTitle("Profile")
-            .onChange(of: viewModel.isUserLoggedIn) {
-                isUserLoggedIn = viewModel.isUserLoggedIn
-            }
-            .onChange(of: viewModel.userToken) {
-                userToken = viewModel.userToken
-            }
         }
     }
 }
 
 struct ProfileView_Previews: PreviewProvider {
-    @State static var isUserLoggedIn = true
-    @State static var userToken = ""
-
     static var previews: some View {
-        ProfileView(isUserLoggedIn: $isUserLoggedIn, userToken: $userToken)
+        ProfileView().environmentObject(AppState.shared)
     }
 }

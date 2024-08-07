@@ -12,6 +12,7 @@ class HomeViewModel: ObservableObject {
     @Published var user: User?
     @Published var isUserLoggedIn: Bool
     @Published var userToken: String
+    @Published var userId: Int = 0
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -20,6 +21,9 @@ class HomeViewModel: ObservableObject {
         self.userToken = userToken
         if isUserLoggedIn, !userToken.isEmpty {
             getUserInfo()
+            if let savedUserId = UserDefaults.standard.value(forKey: "userId") as? Int {
+                self.userId = savedUserId
+            }
         }
     }
 
@@ -43,7 +47,9 @@ class HomeViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     self?.isUserLoggedIn = false
                     self?.userToken = ""
+                    self?.userId = 0
                     UserDefaults.standard.removeObject(forKey: "userToken")
+                    UserDefaults.standard.removeObject(forKey: "userId")
                 }
             case .failure(let error):
                 print("Logout failed: \(error.localizedDescription)")
@@ -51,5 +57,3 @@ class HomeViewModel: ObservableObject {
         }
     }
 }
-
-

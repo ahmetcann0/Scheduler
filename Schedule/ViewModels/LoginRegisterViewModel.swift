@@ -14,17 +14,19 @@ class LoginViewModel: ObservableObject {
     @Published var isLoginMode = true
     @Published var showMessage = false
     @Published var message = ""
-    @Published var isUserLoggedIn = false
-    @Published var userToken = ""
+
+    private let appState = AppState.shared
 
     func login() {
         UserService.shared.login(email: email, password: password) { result in
             switch result {
             case .success(let user):
                 DispatchQueue.main.async {
-                    self.isUserLoggedIn = true
-                    self.userToken = user.token ?? ""
-                    UserDefaults.standard.set(self.userToken, forKey: "userToken")
+                    self.appState.isUserLoggedIn = true
+                    self.appState.userToken = user.token ?? ""
+                    self.appState.userId = String(user.id)
+                    UserDefaults.standard.set(self.appState.userToken, forKey: "userToken")
+                    UserDefaults.standard.set(self.appState.userId, forKey: "userId")
                     self.message = "Logged in successfully! User ID: \(user.id)"
                     self.showMessage = true
                 }
@@ -42,8 +44,9 @@ class LoginViewModel: ObservableObject {
             switch result {
             case .success(let user):
                 DispatchQueue.main.async {
-                    self.isUserLoggedIn = true
-                    self.userToken = user.token ?? ""
+                    self.appState.isUserLoggedIn = true
+                    self.appState.userToken = user.token ?? ""
+                    self.appState.userId = String(user.id)
                     self.message = "Registered successfully! User ID: \(user.id)"
                     self.showMessage = true
                 }
