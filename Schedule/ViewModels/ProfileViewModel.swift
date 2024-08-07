@@ -6,20 +6,20 @@
 //
 
 import Foundation
-import Combine
 
 class ProfileViewModel: ObservableObject {
-    @Published var isUserLoggedIn: Bool = true
-    @Published var userToken: String = ""
+    private var appState = AppState.shared
 
     func logout() {
-        UserService.shared.logout(token: userToken) { [weak self] result in
+        UserService.shared.logout(token: appState.userToken) { [weak self] result in
             switch result {
             case .success:
                 DispatchQueue.main.async {
-                    self?.isUserLoggedIn = false
-                    self?.userToken = ""
+                    self?.appState.isUserLoggedIn = false
+                    self?.appState.userToken = ""
+                    self?.appState.userId = ""
                     UserDefaults.standard.removeObject(forKey: "userToken")
+                    UserDefaults.standard.removeObject(forKey: "userId")
                 }
             case .failure(let error):
                 print("Logout failed: \(error.localizedDescription)")

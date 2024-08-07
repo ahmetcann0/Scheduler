@@ -21,6 +21,7 @@
 		E1FBCF552C6275A500F46451 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FBCF542C6275A500F46451 /* ProfileView.swift */; };
 		E1FBCF572C6275C100F46451 /* ToDoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FBCF562C6275C100F46451 /* ToDoListViewModel.swift */; };
 		E1FBCF592C6275D100F46451 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FBCF582C6275D100F46451 /* ProfileViewModel.swift */; };
+		E1FD7BAD2C6377E400E749FD /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FD7BAC2C6377E400E749FD /* AppState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		E1FBCF542C6275A500F46451 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		E1FBCF562C6275C100F46451 /* ToDoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewModel.swift; sourceTree = "<group>"; };
 		E1FBCF582C6275D100F46451 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		E1FD7BAC2C6377E400E749FD /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 		E128F07E2C557D7B00C324A9 /* Schedule */ = {
 			isa = PBXGroup;
 			children = (
+				E1FD7BAB2C6377CB00E749FD /* Shared */,
 				E161085E2C5D780C00777C13 /* Utilities */,
 				E161085D2C5D77E000777C13 /* ViewModels */,
 				E161085C2C5D77D600777C13 /* Views */,
@@ -135,6 +138,14 @@
 				E1AE277D2C5D3BFC00B58B34 /* UserService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		E1FD7BAB2C6377CB00E749FD /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				E1FD7BAC2C6377E400E749FD /* AppState.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,6 +228,7 @@
 				E128F0822C557D7B00C324A9 /* LoginRegisterView.swift in Sources */,
 				E16108622C5D7AD000777C13 /* ContentView.swift in Sources */,
 				E128F0802C557D7B00C324A9 /* ScheduleApp.swift in Sources */,
+				E1FD7BAD2C6377E400E749FD /* AppState.swift in Sources */,
 				E16108602C5D78A600777C13 /* HomeView.swift in Sources */,
 				E1AE277B2C5D3B8800B58B34 /* User.swift in Sources */,
 			);

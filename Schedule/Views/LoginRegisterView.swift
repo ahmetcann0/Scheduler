@@ -8,8 +8,7 @@ import SwiftUI
 
 struct LoginView: View {
     @StateObject private var viewModel = LoginViewModel()
-    @Binding var isUserLoggedIn: Bool
-    @Binding var userToken: String
+    @EnvironmentObject var appState: AppState
 
     var body: some View {
         VStack {
@@ -63,24 +62,17 @@ struct LoginView: View {
 
             if viewModel.showMessage {
                 Text(viewModel.message)
-                    .foregroundColor(viewModel.isUserLoggedIn ? .green : .red)
+                    .foregroundColor(appState.isUserLoggedIn ? .green : .red)
             }
 
             Spacer()
         }
         .padding()
-        .onChange(of: viewModel.isUserLoggedIn) {
-            self.isUserLoggedIn = viewModel.isUserLoggedIn
-            self.userToken = viewModel.userToken
-        }
     }
 }
 
 struct LoginView_Previews: PreviewProvider {
-    @State static var isUserLoggedIn = false
-    @State static var userToken = ""
-
     static var previews: some View {
-        LoginView(isUserLoggedIn: $isUserLoggedIn, userToken: $userToken)
+        LoginView().environmentObject(AppState.shared)
     }
 }
