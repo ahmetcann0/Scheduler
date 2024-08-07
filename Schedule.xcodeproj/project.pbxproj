@@ -22,6 +22,8 @@
 		E1FBCF572C6275C100F46451 /* ToDoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FBCF562C6275C100F46451 /* ToDoListViewModel.swift */; };
 		E1FBCF592C6275D100F46451 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FBCF582C6275D100F46451 /* ProfileViewModel.swift */; };
 		E1FD7BAD2C6377E400E749FD /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FD7BAC2C6377E400E749FD /* AppState.swift */; };
+		E1FD7BAF2C6381F900E749FD /* NewItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FD7BAE2C6381F900E749FD /* NewItemView.swift */; };
+		E1FD7BB12C63820500E749FD /* NewItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FD7BB02C63820500E749FD /* NewItemViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +43,8 @@
 		E1FBCF562C6275C100F46451 /* ToDoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewModel.swift; sourceTree = "<group>"; };
 		E1FBCF582C6275D100F46451 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		E1FD7BAC2C6377E400E749FD /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		E1FD7BAE2C6381F900E749FD /* NewItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemView.swift; sourceTree = "<group>"; };
+		E1FD7BB02C63820500E749FD /* NewItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +84,7 @@
 				E1AE277C2C5D3BCE00B58B34 /* Services */,
 				E1AE27792C5D3B2900B58B34 /* Models */,
 				E128F07F2C557D7B00C324A9 /* ScheduleApp.swift */,
+				E16108612C5D7AD000777C13 /* ContentView.swift */,
 				E128F0832C557D7C00C324A9 /* Assets.xcassets */,
 				E128F0852C557D7C00C324A9 /* Preview Content */,
 			);
@@ -99,9 +104,9 @@
 			children = (
 				E128F0812C557D7B00C324A9 /* LoginRegisterView.swift */,
 				E161085F2C5D78A600777C13 /* HomeView.swift */,
-				E16108612C5D7AD000777C13 /* ContentView.swift */,
 				E1FBCF522C62759800F46451 /* ToDoListView.swift */,
 				E1FBCF542C6275A500F46451 /* ProfileView.swift */,
+				E1FD7BAE2C6381F900E749FD /* NewItemView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -113,6 +118,7 @@
 				E1FBCF4E2C625CD600F46451 /* HomeViewModel.swift */,
 				E1FBCF562C6275C100F46451 /* ToDoListViewModel.swift */,
 				E1FBCF582C6275D100F46451 /* ProfileViewModel.swift */,
+				E1FD7BB02C63820500E749FD /* NewItemViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -220,6 +226,8 @@
 			files = (
 				E1FBCF4D2C625CB800F46451 /* LoginRegisterViewModel.swift in Sources */,
 				E1AE277E2C5D3BFC00B58B34 /* UserService.swift in Sources */,
+				E1FD7BB12C63820500E749FD /* NewItemViewModel.swift in Sources */,
+				E1FD7BAF2C6381F900E749FD /* NewItemView.swift in Sources */,
 				E1FBCF552C6275A500F46451 /* ProfileView.swift in Sources */,
 				E1FBCF4F2C625CD600F46451 /* HomeViewModel.swift in Sources */,
 				E1FBCF532C62759800F46451 /* ToDoListView.swift in Sources */,
