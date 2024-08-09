@@ -41,11 +41,12 @@ class NewItemViewModel: ObservableObject {
             dueDate: dueDateString,
             createdDate: createdDateString,
             isDone: false,
-            userId: userId // Burada userId'yi Int64 olarak kullanıyoruz
+            userId: userId
         )
 
         // Backend'e yeni item'ı gönderme işlemi
-        guard let url = URL(string: "http://localhost:8080/todos") else {
+        guard let url = URL(string: "http://localhost:8080/users/\(userId)/todos") else {
+            print("Invalid URL")
             return
         }
         
@@ -79,6 +80,7 @@ class NewItemViewModel: ObservableObject {
             }
         }.resume()
     }
+
     
     var canSave: Bool {
         guard !title.trimmingCharacters(in: .whitespaces).isEmpty else {
