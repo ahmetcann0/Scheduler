@@ -10,6 +10,7 @@ import Foundation
 class ToDoListViewModel: ObservableObject {
     
     @Published var showingNewItemView = false
+    @Published var tasks: [ToDoListItem] = []
     
     init() {
         
@@ -20,4 +21,8 @@ class ToDoListViewModel: ObservableObject {
         print("Loading tasks for user ID: \(userId)")
         // Örnek: UserService.shared.getTasks(userId: userId) { ... }
     }
+    
+    func addTask(_ task: ToDoListItem) {
+           tasks.append(task)
+       }
 }
