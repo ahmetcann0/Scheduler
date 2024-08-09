@@ -15,7 +15,16 @@ struct ToDoListView: View {
     var body: some View {
         NavigationView {
             VStack {
-                // Görevler burada gösterilecek
+                List(viewModel.tasks) { item in
+                    ToDoListItemView(item: item)
+                        .swipeActions {
+                            Button("Sil") {
+                                // Silme işlemi
+                            }
+                            .background(Color.red)
+                        }
+                }
+                .listStyle(PlainListStyle())
             }
             .navigationTitle("Tasks")
             .toolbar {
@@ -31,12 +40,12 @@ struct ToDoListView: View {
         }
         .onAppear {
             if let userId = appState.userId {
-                let userIdString = String(userId) // Int64'ü String'e dönüştür
-                viewModel.loadTasks(for: userIdString)
+                viewModel.loadTasks(for: String(userId))
             }
         }
     }
 }
+
 
 struct ToDoListView_Previews: PreviewProvider {
     static var previews: some View {
