@@ -10,7 +10,7 @@ import Foundation
 class AppState: ObservableObject {
     @Published var isUserLoggedIn: Bool = false
     @Published var userToken: String = ""
-    @Published var userId: String = ""
+    @Published var userId: Int64? 
     @Published var user: User?
 
     static let shared = AppState()

@@ -25,12 +25,15 @@ struct ToDoListView: View {
                     Image(systemName: "plus")
                 }
             }
-            .sheet(isPresented: $viewModel.showingNewItemView, content: {
-                NewItemView(newItemPresented: $viewModel.showingNewItemView)
-            })
+            .sheet(isPresented: $viewModel.showingNewItemView) {
+                NewItemView(newItemPresented: $viewModel.showingNewItemView, appState: appState)
+            }
         }
         .onAppear {
-            viewModel.loadTasks(for: appState.userId)
+            if let userId = appState.userId {
+                let userIdString = String(userId) // Int64'ü String'e dönüştür
+                viewModel.loadTasks(for: userIdString)
+            }
         }
     }
 }

@@ -24,7 +24,7 @@ class LoginViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     self.appState.isUserLoggedIn = true
                     self.appState.userToken = user.token ?? ""
-                    self.appState.userId = String(user.id)
+                    self.appState.userId = Int64(user.id)
                     UserDefaults.standard.set(self.appState.userToken, forKey: "userToken")
                     UserDefaults.standard.set(self.appState.userId, forKey: "userId")
                     self.message = "Logged in successfully! User ID: \(user.id)"
@@ -46,7 +46,7 @@ class LoginViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     self.appState.isUserLoggedIn = true
                     self.appState.userToken = user.token ?? ""
-                    self.appState.userId = String(user.id)
+                    self.appState.userId = Int64(user.id)
                     self.message = "Registered successfully! User ID: \(user.id)"
                     self.showMessage = true
                 }

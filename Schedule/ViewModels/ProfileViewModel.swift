@@ -17,7 +17,7 @@ class ProfileViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     self?.appState.isUserLoggedIn = false
                     self?.appState.userToken = ""
-                    self?.appState.userId = ""
+                    self?.appState.userId = 0
                     UserDefaults.standard.removeObject(forKey: "userToken")
                     UserDefaults.standard.removeObject(forKey: "userId")
                 }

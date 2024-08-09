@@ -9,8 +9,14 @@ import SwiftUI
 
 struct NewItemView: View {
     
-    @StateObject var viewModel = NewItemViewModel()
+    @StateObject var viewModel: NewItemViewModel
     @Binding var newItemPresented: Bool
+    @EnvironmentObject var listViewModel: ToDoListViewModel
+    
+    init(newItemPresented: Binding<Bool>, appState: AppState) {
+        _viewModel = StateObject(wrappedValue: NewItemViewModel(appState: appState))
+        _newItemPresented = newItemPresented
+    }
     
     var body: some View {
         VStack {
@@ -44,8 +50,9 @@ struct NewItemView: View {
 
 struct NewItemView_Previews: PreviewProvider {
     @State static var newItemPresented = true
-
+    static var appState = AppState.shared
+    
     static var previews: some View {
-        NewItemView(newItemPresented: $newItemPresented)
+        NewItemView(newItemPresented: $newItemPresented, appState: appState)
     }
 }
