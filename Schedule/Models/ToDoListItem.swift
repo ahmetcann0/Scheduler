@@ -8,15 +8,19 @@
 import Foundation
 
 struct ToDoListItem: Codable, Identifiable {
-    let id: Int64
+    let id: Int
     let title: String
-    let dueDate: String // veya Date türü kullanabilirsiniz
-    let createdDate: String // veya Date türü kullanabilirsiniz
-    var isDone: Bool
-    let userId: Int64;
-    
+    let dueDate: String
+    let createdDate: String
+    let userId: Int
+    let isDone: Bool  // JSON'daki 'done' ile eşleşecek şekilde 'isDone' olarak adlandırılıyor
 
-    mutating func setDone(_ state: Bool) {
-        isDone = state
+    enum CodingKeys: String, CodingKey {
+        case id
+        case title
+        case dueDate = "dueDate" // JSON'daki 'dueDate' ile eşleşiyor
+        case createdDate = "createdDate" // JSON'daki 'createdDate' ile eşleşiyor
+        case userId = "userId" // JSON'daki 'userId' ile eşleşiyor
+        case isDone = "done" // JSON'daki 'done' ile eşleşiyor
     }
 }

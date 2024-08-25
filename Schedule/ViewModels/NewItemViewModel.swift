@@ -40,8 +40,7 @@ class NewItemViewModel: ObservableObject {
             title: title,
             dueDate: dueDateString,
             createdDate: createdDateString,
-            isDone: false,
-            userId: userId
+            userId: Int(userId), isDone: false
         )
 
         // Backend'e yeni item'ı gönderme işlemi

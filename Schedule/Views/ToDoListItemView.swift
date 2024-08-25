@@ -50,8 +50,7 @@ struct ToDoListItemView_Previews: PreviewProvider {
             title: "Sample Task",
             dueDate: "2024-08-09T15:00:00Z",
             createdDate: "2024-08-08T12:00:00Z",
-            isDone: false,
-            userId: 123
+            userId: 123, isDone: false
         ))
     }
 }
