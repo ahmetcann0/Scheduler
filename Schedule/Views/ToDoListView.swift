@@ -18,11 +18,13 @@ struct ToDoListView: View {
                 List(viewModel.tasks) { item in
                     ToDoListItemView(item: item)
                         .swipeActions {
-                            Button("Sil") {
-                                // Silme işlemi
-                            }
-                            .background(Color.red)
-                        }
+                                                       Button("Sil") {
+                                                           if let index = viewModel.tasks.firstIndex(where: { $0.id == item.id }) {
+                                                               viewModel.deleteTask(at: IndexSet(integer: index))
+                                                           }
+                                                       }
+                                                       .tint(.red)
+                                                   }
                 }
                 .listStyle(PlainListStyle())
             }
