@@ -12,6 +12,7 @@ class AppState: ObservableObject {
     @Published var userToken: String = ""
     @Published var userId: Int64? 
     @Published var user: User?
+    
 
     static let shared = AppState()
 }
