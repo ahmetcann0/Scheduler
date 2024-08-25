@@ -40,12 +40,12 @@ struct ToDoListView: View {
         }
         .onAppear {
             if let userId = appState.userId {
+                print("Fetching tasks for userId: \(userId)") // Debug: Kullanıcı ID'si yazdırma
                 viewModel.loadTasks(for: String(userId))
             }
         }
     }
 }
-
 
 struct ToDoListView_Previews: PreviewProvider {
     static var previews: some View {

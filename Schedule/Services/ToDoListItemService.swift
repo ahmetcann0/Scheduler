@@ -5,6 +5,7 @@
 //  Created by Ahmet Can Öztürk on 9.08.2024.
 //
 
+
 import Foundation
 
 class ToDoListItemService {
@@ -15,6 +16,7 @@ class ToDoListItemService {
 
     func fetchToDoListItems(for userId: Int64, completion: @escaping (Result<[ToDoListItem], NetworkError>) -> Void) {
         guard let url = URL(string: "\(baseURL)/\(userId)/todos") else {
+            print("Invalid URL: \(baseURL)/\(userId)/todos")
             completion(.failure(.badURL))
             return
         }
@@ -29,14 +31,29 @@ class ToDoListItemService {
                 return
             }
 
-            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("Invalid response")
+                completion(.failure(.invalidResponse))
+                return
+            }
+
+            print("HTTP Status Code: \(httpResponse.statusCode)")
+
+            guard httpResponse.statusCode == 200 else {
+                print("Error status code: \(httpResponse.statusCode)")
                 completion(.failure(.invalidResponse))
                 return
             }
 
             guard let data = data else {
+                print("No data received")
                 completion(.failure(.unknown))
                 return
+            }
+
+            // Print raw JSON data for debugging
+            if let jsonString = String(data: data, encoding: .utf8) {
+                print("Received JSON: \(jsonString)")
             }
 
             do {
