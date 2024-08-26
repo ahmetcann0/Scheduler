@@ -19,7 +19,7 @@ class NewItemViewModel: ObservableObject {
         self.appState = appState
     }
     
-    func save() {
+    func save(completion: @escaping () -> Void) {
         guard canSave else {
             return
         }
@@ -43,7 +43,6 @@ class NewItemViewModel: ObservableObject {
             userId: Int(userId), isDone: false
         )
 
-        // Backend'e yeni item'ı gönderme işlemi
         guard let url = URL(string: "http://localhost:8080/users/\(userId)/todos") else {
             print("Invalid URL")
             return
@@ -73,12 +72,12 @@ class NewItemViewModel: ObservableObject {
                 return
             }
             
-            // Başarılı kayıt durumunda yapılacak işlemler
             DispatchQueue.main.async {
-                // Todo listeye geri dön
+                completion()
             }
         }.resume()
     }
+
 
     
     var canSave: Bool {

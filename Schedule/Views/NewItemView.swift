@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct NewItemView: View {
-    
     @StateObject var viewModel: NewItemViewModel
     @Binding var newItemPresented: Bool
     @EnvironmentObject var listViewModel: ToDoListViewModel
-    
+    @EnvironmentObject var appState: AppState // AppState'i EnvironmentObject olarak ekleyin
+
     init(newItemPresented: Binding<Bool>, appState: AppState) {
         _viewModel = StateObject(wrappedValue: NewItemViewModel(appState: appState))
         _newItemPresented = newItemPresented
@@ -32,8 +32,13 @@ struct NewItemView: View {
                 
                 Button(action: {
                     if viewModel.canSave {
-                        viewModel.save()
-                        newItemPresented = false
+                        viewModel.save {
+                            // `ToDoListViewModel`'i güncellemek için loadTasks çağırabilirsiniz
+                            if let userId = appState.userId {
+                                listViewModel.loadTasks(for: String(userId))
+                            }
+                            newItemPresented = false
+                        }
                     } else {
                         viewModel.showAlert = true
                     }
@@ -54,5 +59,7 @@ struct NewItemView_Previews: PreviewProvider {
     
     static var previews: some View {
         NewItemView(newItemPresented: $newItemPresented, appState: appState)
+            .environmentObject(ToDoListViewModel()) // Preview için environmentObject ekleyin
+            .environmentObject(appState) // Preview için environmentObject ekleyin
     }
 }
