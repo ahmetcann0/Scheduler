@@ -13,7 +13,7 @@ struct ToDoListItem: Codable, Identifiable {
     let dueDate: String
     let createdDate: String
     let userId: Int
-    let isDone: Bool  
+    var isDone: Bool
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -23,4 +23,7 @@ struct ToDoListItem: Codable, Identifiable {
         case userId = "userId"
         case isDone = "done"
     }
+    
+    
+    
 }

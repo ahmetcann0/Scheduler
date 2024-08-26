@@ -3,6 +3,7 @@ package com.ahmetcan.schedulerapi.controller;
 import com.ahmetcan.schedulerapi.model.ToDoListItem;
 import com.ahmetcan.schedulerapi.service.ToDoListItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,6 +43,19 @@ public class ToDoListItemController {
         } else {
             return ResponseEntity.notFound().build(); // Öğeyi bulamadığınızda HTTP 404 Not Found
         }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ToDoListItem> updateToDoListItem(
+            @PathVariable Long userId,
+            @PathVariable Long id,
+            @RequestBody ToDoListItem updatedItem) {
+        if (!updatedItem.getUserId().equals(userId)) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
+        ToDoListItem item = service.updateToDoListItem(id, updatedItem);
+        return new ResponseEntity<>(item, HttpStatus.OK);
     }
 
 }

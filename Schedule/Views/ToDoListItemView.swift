@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ToDoListItemView: View {
+    @EnvironmentObject var viewModel: ToDoListItemViewModel
     let item: ToDoListItem
 
     var body: some View {
@@ -22,7 +23,15 @@ struct ToDoListItemView: View {
             Spacer()
 
             Button {
-                // İşaretleme işlemi burada yapılabilir
+                viewModel.toggleIsDone(for: item) { result in
+                    switch result {
+                    case .success(let updatedItem):
+                        // Burada, başarılı güncellemeden sonra yapılacak işlemler
+                        print("Item updated: \(updatedItem)")
+                    case .failure(let error):
+                        print("Error updating item: \(error)")
+                    }
+                }
             } label: {
                 Image(systemName: item.isDone ? "checkmark.circle.fill" : "circle")
             }
@@ -39,9 +48,7 @@ struct ToDoListItemView: View {
         displayFormatter.timeStyle = .short
         return displayFormatter.string(from: date)
     }
-
 }
-
 
 struct ToDoListItemView_Previews: PreviewProvider {
     static var previews: some View {
@@ -52,6 +59,6 @@ struct ToDoListItemView_Previews: PreviewProvider {
             createdDate: "2024-08-08T12:00:00Z",
             userId: 123, isDone: false
         ))
+        .environmentObject(ToDoListItemViewModel())
     }
 }
-

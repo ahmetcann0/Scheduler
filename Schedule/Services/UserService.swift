@@ -10,6 +10,7 @@ enum NetworkError: Error {
     case requestFailed
     case unknown
     case invalidResponse
+    case encodingFailed
 }
 
 struct LoginResponse: Codable {
