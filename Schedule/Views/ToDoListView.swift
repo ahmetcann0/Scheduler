@@ -8,6 +8,8 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct ToDoListView: View {
     @StateObject var viewModel = ToDoListViewModel()
     @EnvironmentObject var appState: AppState
@@ -16,16 +18,14 @@ struct ToDoListView: View {
         NavigationView {
             VStack {
                 List(viewModel.tasks) { item in
-                    ToDoListItemView(item: item)
-                        .swipeActions {
-                                                       Button("Sil") {
-                                                           if let index = viewModel.tasks.firstIndex(where: { $0.id == item.id }) {
-                                                               viewModel.deleteTask(at: IndexSet(integer: index))
-                                                           }
-                                                       }
-                                                       .tint(.red)
-                                                   }
-                }
+                        ToDoListItemView(item: item)
+                            .swipeActions {
+                                Button("Sil") {
+                                // delete işlemi
+                                }
+                                .tint(.red)
+                            }
+                    }
                 .listStyle(PlainListStyle())
             }
             .navigationTitle("Tasks")
@@ -42,12 +42,13 @@ struct ToDoListView: View {
         }
         .onAppear {
             if let userId = appState.userId {
-                print("Fetching tasks for userId: \(userId)") // Debug: Kullanıcı ID'si yazdırma
+                print("Fetching tasks for userId: \(userId)")
                 viewModel.loadTasks(for: String(userId))
             }
         }
     }
 }
+
 
 struct ToDoListView_Previews: PreviewProvider {
     static var previews: some View {
