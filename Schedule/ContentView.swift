@@ -5,12 +5,15 @@
 
 import SwiftUI
 
+
 struct ContentView: View {
     @EnvironmentObject var appState: AppState
+    @EnvironmentObject var toDoListItemViewModel: ToDoListItemViewModel // Burada da sağlanmalı
 
     var body: some View {
         if appState.isUserLoggedIn {
             HomeView()
+                .environmentObject(toDoListItemViewModel) // Burada da sağlanmalı
         } else {
             LoginView()
         }

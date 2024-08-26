@@ -1,5 +1,6 @@
 package com.ahmetcan.schedulerapi.service;
 
+import com.ahmetcan.schedulerapi.exception.ResourceNotFoundException;
 import com.ahmetcan.schedulerapi.model.ToDoListItem;
 import com.ahmetcan.schedulerapi.repository.ToDoListItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,19 @@ public class ToDoListItemService {
     }
     public ToDoListItem findById(Long todoItemId) {
         return repository.findById(todoItemId).orElse(null);
+    }
+
+    public ToDoListItem updateToDoListItem(Long id, ToDoListItem updatedItem) {
+        return repository.findById(id)
+                .map(item -> {
+                    item.setTitle(updatedItem.getTitle());
+                    item.setDueDate(updatedItem.getDueDate());
+                    item.setCreatedDate(updatedItem.getCreatedDate());
+                    item.setUserId(updatedItem.getUserId());
+                    item.setDone(updatedItem.getDone());
+                    return repository.save(item);
+                })
+                .orElseThrow(() -> new ResourceNotFoundException("Item not found with id " + id));
     }
 
 }
