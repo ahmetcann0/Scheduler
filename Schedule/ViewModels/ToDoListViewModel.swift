@@ -39,5 +39,25 @@ class ToDoListViewModel: ObservableObject {
         tasks.append(task)
     }
     
+    func deleteTask(_ task: ToDoListItem) {
+        // Kullanıcı ID'si ve görev ID'si doğrudan kullanılır
+        let userIdInt64 = Int64(task.userId) // Int64 dönüşüm işlemi
+        let taskIdInt64 = Int64(task.id)     // Int64 dönüşüm işlemi
+
+        // ToDoListItemService ile silme işlemi yapılır
+        ToDoListItemService.shared.deleteToDoListItem(withId: taskIdInt64, userId: userIdInt64) { [weak self] result in
+            switch result {
+            case .success:
+                DispatchQueue.main.async {
+                    // Görev başarıyla silindiğinde listeden çıkarılır
+                    self?.tasks.removeAll { $0.id == task.id }
+                }
+            case .failure(let error):
+                print("Error deleting task: \(error)")
+            }
+        }
+    }
+
+    
     
 }
