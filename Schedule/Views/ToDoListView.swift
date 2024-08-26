@@ -21,7 +21,7 @@ struct ToDoListView: View {
                         ToDoListItemView(item: item)
                             .swipeActions {
                                 Button("Sil") {
-                                // delete işlemi
+                                    viewModel.deleteTask(item)
                                 }
                                 .tint(.red)
                             }
