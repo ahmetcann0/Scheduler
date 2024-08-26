@@ -8,8 +8,6 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct ToDoListView: View {
     @StateObject var viewModel = ToDoListViewModel()
     @EnvironmentObject var appState: AppState
@@ -18,14 +16,14 @@ struct ToDoListView: View {
         NavigationView {
             VStack {
                 List(viewModel.tasks) { item in
-                        ToDoListItemView(item: item)
-                            .swipeActions {
-                                Button("Sil") {
-                                    viewModel.deleteTask(item)
-                                }
-                                .tint(.red)
+                    ToDoListItemView(item: item)
+                        .swipeActions {
+                            Button("Sil") {
+                                viewModel.deleteTask(item)
                             }
-                    }
+                            .tint(.red)
+                        }
+                }
                 .listStyle(PlainListStyle())
             }
             .navigationTitle("Tasks")
@@ -38,6 +36,8 @@ struct ToDoListView: View {
             }
             .sheet(isPresented: $viewModel.showingNewItemView) {
                 NewItemView(newItemPresented: $viewModel.showingNewItemView, appState: appState)
+                    .environmentObject(viewModel) // `ToDoListViewModel`'i environmentObject olarak ekleme
+                    .environmentObject(appState) // `AppState`'i environmentObject olarak ekleme
             }
         }
         .onAppear {
