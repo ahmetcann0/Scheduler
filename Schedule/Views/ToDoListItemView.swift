@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ToDoListItemView: View {
     @EnvironmentObject var viewModel: ToDoListItemViewModel
-    let item: ToDoListItem
+    @Binding var item: ToDoListItem  // @Binding ekleniyor
 
     var body: some View {
         HStack {
@@ -26,7 +26,7 @@ struct ToDoListItemView: View {
                 viewModel.toggleIsDone(for: item) { result in
                     switch result {
                     case .success(let updatedItem):
-                        // Burada, başarılı güncellemeden sonra yapılacak işlemler
+                        item = updatedItem  // @Binding ile güncellenen item'e atama yap
                         print("Item updated: \(updatedItem)")
                     case .failure(let error):
                         print("Error updating item: \(error)")
@@ -50,15 +50,16 @@ struct ToDoListItemView: View {
     }
 }
 
+
 struct ToDoListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ToDoListItemView(item: ToDoListItem(
+        ToDoListItemView(item: .constant(ToDoListItem(
             id: 123,
             title: "Sample Task",
             dueDate: "2024-08-09T15:00:00Z",
             createdDate: "2024-08-08T12:00:00Z",
             userId: 123, isDone: false
-        ))
+        )))
         .environmentObject(ToDoListItemViewModel())
     }
 }
