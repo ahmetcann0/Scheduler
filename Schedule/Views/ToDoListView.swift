@@ -5,7 +5,6 @@
 //  Created by Ahmet Can Öztürk on 6.08.2024.
 //
 
-
 import SwiftUI
 
 struct ToDoListView: View {
@@ -15,14 +14,16 @@ struct ToDoListView: View {
     var body: some View {
         NavigationView {
             VStack {
-                List(viewModel.tasks) { item in
-                    ToDoListItemView(item: item)
-                        .swipeActions {
-                            Button("Sil") {
-                                viewModel.deleteTask(item)
+                List {
+                    ForEach(viewModel.tasks.indices, id: \.self) { index in
+                        ToDoListItemView(item: $viewModel.tasks[index])
+                            .swipeActions {
+                                Button("Sil") {
+                                    viewModel.deleteTask(viewModel.tasks[index])
+                                }
+                                .tint(.red)
                             }
-                            .tint(.red)
-                        }
+                    }
                 }
                 .listStyle(PlainListStyle())
             }
@@ -36,8 +37,8 @@ struct ToDoListView: View {
             }
             .sheet(isPresented: $viewModel.showingNewItemView) {
                 NewItemView(newItemPresented: $viewModel.showingNewItemView, appState: appState)
-                    .environmentObject(viewModel) // `ToDoListViewModel`'i environmentObject olarak ekleme
-                    .environmentObject(appState) // `AppState`'i environmentObject olarak ekleme
+                    .environmentObject(viewModel)
+                    .environmentObject(appState)
             }
         }
         .onAppear {
