@@ -12,18 +12,22 @@ struct LoginView: View {
 
     var body: some View {
         VStack {
-            Text("Scheduler")
-                .font(.title)
             
-            Image("scheduler_icon_loginpage1")
+            
+            Text("Scheduler")
+                .font(.largeTitle)
+                .padding(.top, 40)
+            
+            Image("scheduler_icon")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 150, height: 150)
-                .padding()
+                .frame(width: 300, height: 300)
+                .padding(.top, -40)
+
 
             Picker(selection: $viewModel.isLoginMode, label: Text("Login Mode")) {
                 Text("Login").tag(true)
-                Text("Signup").tag(false)
+                Text("Sign Up").tag(false)
             }
             .pickerStyle(SegmentedPickerStyle())
             .padding()
@@ -52,13 +56,15 @@ struct LoginView: View {
                     viewModel.register()
                 }
             }) {
-                Text(viewModel.isLoginMode ? "Login" : "Signup")
+                Text(viewModel.isLoginMode ? "Login" : "Sign Up")
                     .foregroundColor(.white)
-                    .padding()
-                    .background(Color.blue)
-                    .cornerRadius(10)
+                            .padding(.vertical, 15)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.purple)
+                            .cornerRadius(10)
+
             }
-            .padding()
+            .padding(.all, 30)
 
             if viewModel.showMessage {
                 Text(viewModel.message)
