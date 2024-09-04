@@ -48,7 +48,7 @@ struct ToDoListItemView: View {
         guard let date = inputDateFormatter.date(from: dateString) else { return dateString }
 
         let outputDateFormatter = DateFormatter()
-        outputDateFormatter.dateFormat = "dd/MM/yyyy, HH:mm"
+        outputDateFormatter.dateFormat = "d MMM yyyy 'at' HH:mm"
         outputDateFormatter.timeZone = TimeZone.current
 
         return outputDateFormatter.string(from: date)
