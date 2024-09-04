@@ -18,11 +18,14 @@ import java.util.Map;
 @RequestMapping("/users")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final TokenService tokenService;
 
-    @Autowired
-    private TokenService tokenService;
+    // Constructor injection
+    public UserController(UserService userService, TokenService tokenService) {
+        this.userService = userService;
+        this.tokenService = tokenService;
+    }
 
     @PostMapping("/register")
     public ResponseEntity<?> createUser(@RequestBody UserCreateRequest userCreateRequest) {
