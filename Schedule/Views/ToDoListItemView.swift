@@ -12,14 +12,14 @@ struct ToDoListItemView: View {
     @Binding var item: ToDoListItem
 
     var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 8) {
+        HStack (spacing: 8){
+            VStack(alignment: .leading, spacing: 4) {
                 Text(item.title)
-                    .font(.headline)
+                    .font(.system(size: 16))
                     .foregroundColor(.white)
                 
                 Text(formatDate(item.dueDate))
-                    .font(.subheadline)
+                    .font(.system(size: 12))
                     .foregroundColor(.white.opacity(0.7))
             }
 
