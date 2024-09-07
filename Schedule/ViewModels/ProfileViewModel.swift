@@ -6,9 +6,16 @@
 //
 
 import Foundation
+import SwiftUI
 
 class ProfileViewModel: ObservableObject {
     private var appState = AppState.shared
+    @Published var isDarkMode: Bool = false
+
+    init() {
+        // Varsayılan olarak cihazın modunu kullanabilir
+        isDarkMode = UIScreen.main.traitCollection.userInterfaceStyle == .dark
+    }
 
     func logout() {
         UserService.shared.logout(token: appState.userToken) { [weak self] result in
