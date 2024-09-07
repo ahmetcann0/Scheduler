@@ -13,16 +13,19 @@ struct ToDoListItemView: View {
 
     var body: some View {
         HStack {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 8) {
                 Text(item.title)
                     .font(.headline)
+                    .foregroundColor(.white)
+                
                 Text(formatDate(item.dueDate))
                     .font(.subheadline)
+                    .foregroundColor(.white.opacity(0.7))
             }
 
             Spacer()
 
-            Button {
+            Button(action: {
                 viewModel.toggleIsDone(for: item) { result in
                     switch result {
                     case .success(let updatedItem):
@@ -32,11 +35,25 @@ struct ToDoListItemView: View {
                         print("Error updating item: \(error)")
                     }
                 }
-            } label: {
+            }) {
                 Image(systemName: item.isDone ? "checkmark.circle.fill" : "circle")
+                    .foregroundColor(item.isDone ? Color.purple : Color.white)
+                    .font(.system(size: 24))
+                    .padding()
+                    .background(item.isDone ? Color.white.opacity(0.2) : Color.purple.opacity(0.3))
+                    .clipShape(Circle())
             }
         }
         .padding()
+        .background(
+            LinearGradient(
+                gradient: Gradient(colors: [Color.purple.opacity(0.8), Color.purple]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        )
+        .cornerRadius(12)
+        .shadow(color: Color.black.opacity(0.2), radius: 4, x: 2, y: 2)
     }
 
     // Tarih formatlama fonksiyonu
