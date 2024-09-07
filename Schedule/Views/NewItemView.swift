@@ -11,7 +11,7 @@ struct NewItemView: View {
     @StateObject var viewModel: NewItemViewModel
     @Binding var newItemPresented: Bool
     @EnvironmentObject var listViewModel: ToDoListViewModel
-    @EnvironmentObject var appState: AppState // AppState'i EnvironmentObject olarak ekleyin
+    @EnvironmentObject var appState: AppState
 
     init(newItemPresented: Binding<Bool>, appState: AppState) {
         _viewModel = StateObject(wrappedValue: NewItemViewModel(appState: appState))
@@ -23,17 +23,26 @@ struct NewItemView: View {
             Text("New Task")
                 .font(.title)
                 .bold()
-                .padding(.top, 100)
+                .padding(.top, 40)
+            
             Form {
-                TextField("Title", text: $viewModel.title)
+                Section {
+                    TextField("Title", text: $viewModel.title
+                    )
+                        .padding()
+                        .background(Color.purple.opacity(0.1))
+                        .cornerRadius(10)
+                }
                 
-                DatePicker("Due Date", selection: $viewModel.dueDate)
-                    .datePickerStyle(GraphicalDatePickerStyle())
-                
+                Section {
+                    DatePicker("Due Date", selection: $viewModel.dueDate)
+                        .datePickerStyle(GraphicalDatePickerStyle())
+                        .accentColor(.purple)
+                }
+
                 Button(action: {
                     if viewModel.canSave {
                         viewModel.save {
-                            // `ToDoListViewModel`'i güncellemek için loadTasks çağırabilirsiniz
                             if let userId = appState.userId {
                                 listViewModel.loadTasks(for: String(userId))
                             }
@@ -44,12 +53,26 @@ struct NewItemView: View {
                     }
                 }) {
                     Text("Save")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.purple)
+                        .cornerRadius(10)
                 }
                 .alert(isPresented: $viewModel.showAlert) {
                     Alert(title: Text("Error"), message: Text("Please fill in all fields"), dismissButton: .default(Text("OK")))
                 }
             }
+            .background(Color.white)
+            .cornerRadius(12)
+            .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
         }
+        .background(
+            LinearGradient(gradient: Gradient(colors: [Color.purple.opacity(0.8), Color.purple]),
+                           startPoint: .top, endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all)
+        )
     }
 }
 
@@ -59,7 +82,7 @@ struct NewItemView_Previews: PreviewProvider {
     
     static var previews: some View {
         NewItemView(newItemPresented: $newItemPresented, appState: appState)
-            .environmentObject(ToDoListViewModel()) // Preview için environmentObject ekleyin
-            .environmentObject(appState) // Preview için environmentObject ekleyin
+            .environmentObject(ToDoListViewModel())
+            .environmentObject(appState)
     }
 }
