@@ -1,5 +1,6 @@
 package com.ahmetcan.schedulerapi.service;
 
+import com.ahmetcan.schedulerapi.dto.PasswordChangeRequest;
 import com.ahmetcan.schedulerapi.exception.InvalidCredentialsException;
 import com.ahmetcan.schedulerapi.exception.UserAlreadyExistsException;
 import com.ahmetcan.schedulerapi.model.User;
@@ -11,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -70,4 +72,21 @@ public class UserService {
         }
         return false;
     }
+
+    public boolean changePassword(Long userId, PasswordChangeRequest passwordChangeRequest) {
+
+        Optional<User> optionalUser = userRepository.findById(userId);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+
+            if (passwordEncoder.matches(passwordChangeRequest.getOldPassword(), user.getPassword())) {
+                user.setPassword(passwordEncoder.encode(passwordChangeRequest.getNewPassword()));
+                userRepository.save(user);
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
