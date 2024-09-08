@@ -64,10 +64,11 @@ struct ProfileView: View {
                     }
                     .padding(.vertical, 10)
 
-                    NavigationLink(destination: Text("Change Password")) {
+                    NavigationLink(destination: ChangePasswordView().environmentObject(appState)) {
                         Text("Change Password")
                     }
                     .padding(.vertical, 10)
+
                 }
 
                 Spacer()
