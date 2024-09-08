@@ -1,5 +1,6 @@
 package com.ahmetcan.schedulerapi.controller;
 
+import com.ahmetcan.schedulerapi.dto.CategoryRequest;
 import com.ahmetcan.schedulerapi.model.Category;
 import com.ahmetcan.schedulerapi.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +32,24 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Category> createCategory(@RequestBody Category category) {
+    public ResponseEntity<Category> createCategory(
+            @RequestParam("userId") Long userId,
+            @RequestBody Category category) {
+
+        if (userId == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        // Eğer isImportant null ise varsayılan değer olan false'u kullan
+        if (category.getIsImportant() == null) {
+            category.setIsImportant(false);
+        }
+
+        category.setUserId(userId);
         Category createdCategory = categoryService.createCategory(category);
         return new ResponseEntity<>(createdCategory, HttpStatus.CREATED);
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Category> updateCategory(@PathVariable("id") Long id, @RequestBody Category category) {
