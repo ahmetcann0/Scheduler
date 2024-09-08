@@ -16,21 +16,24 @@ struct ProfileView: View {
         NavigationView {
             VStack(alignment: .leading, spacing: 20) {
                 // User Information
-                HStack {
-                    Image(systemName: "person.circle.fill")
-                        .resizable()
-                        .frame(width: 80, height: 80)
-                        .foregroundColor(.purple)
-                    
-                    VStack(alignment: .leading) {
-                        Text("Ahmet Can Öztürk")
-                            .font(.headline)
-                        Text("ahmetcan@example.com")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                    }
-                }
-                .padding()
+                              if let user = viewModel.user {
+                                  HStack {
+                                      Image(systemName: "person.circle.fill")
+                                          .resizable()
+                                          .frame(width: 80, height: 80)
+                                          .foregroundColor(.purple)
+                                      
+                                      VStack(alignment: .leading) {
+                                          Text(user.email)
+                                              .font(.headline)
+                                      }
+                                  }
+                                  .padding()
+                              } else {
+                                  // Loading state or fallback
+                                  Text("Loading user information...")
+                                      .foregroundColor(.gray)
+                              }
 
                 // Task Statistics
                 HStack {

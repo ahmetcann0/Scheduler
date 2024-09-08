@@ -18,11 +18,8 @@ struct ChangePasswordView: View {
     var body: some View {
         VStack {
             Form {
-                Section(header: Text("Change Password")
-                    .font(.headline)
-                    .foregroundColor(Color.black)
-                    .padding()
-                    .frame(maxWidth: .infinity, alignment: .center)) {
+                Section(
+                   ) {
                     SecureField("Current Password", text: $viewModel.oldPassword)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding(.vertical, 4)
