@@ -25,6 +25,10 @@ public class ToDoListItem {
     @Column(nullable = false)
     private Long userId;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     public ToDoListItem() {
         this.isDone = false;
     }
@@ -36,6 +40,7 @@ public class ToDoListItem {
         this.createdDate = createdDate;
         this.isDone = isDone;
         this.userId = userId;
+        this.category = category;
     }
 
     public Long getId() {
@@ -86,6 +91,14 @@ public class ToDoListItem {
         this.userId = userId;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
         return "ToDoListItem{" +
@@ -95,6 +108,8 @@ public class ToDoListItem {
                 ", createdDate=" + createdDate +
                 ", isDone=" + isDone +
                 ", userId=" + userId +
+                ", category=" + category +
                 '}';
     }
+
 }

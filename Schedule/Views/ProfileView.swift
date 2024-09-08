@@ -35,28 +35,7 @@ struct ProfileView: View {
                                       .foregroundColor(.gray)
                               }
 
-                // Task Statistics
-                HStack {
-                    VStack {
-                        Text("10")
-                            .font(.title)
-                            .bold()
-                        Text("Completed")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                    }
-                    Spacer()
-                    VStack {
-                        Text("5")
-                            .font(.title)
-                            .bold()
-                        Text("Incomplete")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                    }
-                }
-                .padding()
-
+             
                 // Settings
                 Section(header: Text("Settings").font(.headline)) {
                     Toggle("Dark Mode", isOn: $viewModel.isDarkMode)
