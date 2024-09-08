@@ -1,5 +1,6 @@
 package com.ahmetcan.schedulerapi.controller;
 
+import com.ahmetcan.schedulerapi.dto.PasswordChangeRequest;
 import com.ahmetcan.schedulerapi.dto.UserCreateRequest;
 import com.ahmetcan.schedulerapi.exception.InvalidCredentialsException;
 import com.ahmetcan.schedulerapi.exception.UserAlreadyExistsException;
@@ -81,4 +82,19 @@ public class UserController {
         boolean isDeleted = userService.deleteUser(id);
         return isDeleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
+
+
+    @PutMapping("/change-password/{userId}")
+    public ResponseEntity<String> changePassword(
+            @PathVariable Long userId,
+            @RequestBody PasswordChangeRequest passwordChangeRequest) {
+        boolean success = userService.changePassword(userId, passwordChangeRequest);
+
+        if (success) {
+            return ResponseEntity.ok("Password changed successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Password change failed");
+        }
+    }
+
 }
