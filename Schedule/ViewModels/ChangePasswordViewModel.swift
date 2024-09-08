@@ -14,58 +14,67 @@ class ChangePasswordViewModel: ObservableObject {
     @Published var alertTitle = ""
     @Published var alertMessage = ""
 
-    func changePassword(userId: Int64?, token: String) {
+    private let baseURL = "http://localhost:8080/users/change-password"
+    
+    func changePassword(userId: Int64?, token: String, completion: @escaping () -> Void) {
         guard let userId = userId else {
-            DispatchQueue.main.async {
-                self.alertTitle = "Error"
-                self.alertMessage = "Invalid user ID"
-                self.showingAlert = true
-            }
+            showAlert(title: "Error", message: "Invalid user ID")
             return
         }
         
-        // URL'ye userId'yi ekleyin
-        let url = URL(string: "http://localhost:8080/users/change-password/\(userId)")!
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "PUT"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        guard let url = URL(string: "\(baseURL)/\(userId)") else {
+            showAlert(title: "Error", message: "Invalid URL")
+            return
+        }
+        
+        var request = createRequest(url: url, token: token)
         
         let body: [String: String] = [
             "oldPassword": oldPassword,
             "newPassword": newPassword
         ]
         
-        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
+        } catch {
+            showAlert(title: "Error", message: "Failed to encode request body")
+            return
+        }
         
         URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
             if let error = error {
                 print("Change password error: \(error)")
-                DispatchQueue.main.async {
-                    self?.alertTitle = "Error"
-                    self?.alertMessage = "Failed to change password"
-                    self?.showingAlert = true
-                }
+                self?.showAlert(title: "Error", message: "Failed to change password")
                 return
             }
             
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                DispatchQueue.main.async {
-                    self?.alertTitle = "Error"
-                    self?.alertMessage = "Failed to change password"
-                    self?.showingAlert = true
-                }
+                self?.showAlert(title: "Error", message: "Failed to change password")
                 return
             }
             
             DispatchQueue.main.async {
-                self?.alertTitle = "Success"
-                self?.alertMessage = "Password changed successfully"
-                self?.showingAlert = true
+                self?.showAlert(title: "Success", message: "Password changed successfully")
                 self?.oldPassword = ""
                 self?.newPassword = ""
+                completion()
             }
         }.resume()
+    }
+    
+    private func createRequest(url: URL, token: String) -> URLRequest {
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return request
+    }
+    
+    private func showAlert(title: String, message: String) {
+        DispatchQueue.main.async {
+            self.alertTitle = title
+            self.alertMessage = message
+            self.showingAlert = true
+        }
     }
 }
