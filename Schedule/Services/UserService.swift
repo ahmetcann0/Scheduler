@@ -11,6 +11,8 @@ enum NetworkError: Error {
     case unknown
     case invalidResponse
     case encodingFailed
+    case notFound
+    case decodingError
 }
 
 struct LoginResponse: Codable {
@@ -177,6 +179,53 @@ class UserService {
             }
 
             completion(.success(user))
+        }.resume()
+    }
+    
+    func getUserInfoById(userId: Int, completion: @escaping (Result<User, NetworkError>) -> Void) {
+        guard let url = URL(string: "\(baseURL)/\(userId)") else {
+            completion(.failure(.badURL))
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Get user info error: \(error)")
+                completion(.failure(.requestFailed))
+                return
+            }
+
+            guard let httpResponse = response as? HTTPURLResponse else {
+                completion(.failure(.invalidResponse))
+                return
+            }
+
+            if httpResponse.statusCode == 404 {
+                completion(.failure(.notFound))
+                return
+            }
+
+            guard httpResponse.statusCode == 200 else {
+                completion(.failure(.invalidResponse))
+                return
+            }
+
+            guard let data = data else {
+                completion(.failure(.unknown))
+                return
+            }
+
+            do {
+                let user = try JSONDecoder().decode(User.self, from: data)
+                completion(.success(user))
+            } catch {
+                print("Failed to decode user: \(error)")
+                completion(.failure(.decodingError))
+            }
         }.resume()
     }
 
