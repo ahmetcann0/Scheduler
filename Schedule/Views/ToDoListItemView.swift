@@ -12,15 +12,17 @@ struct ToDoListItemView: View {
     @Binding var item: ToDoListItem
 
     var body: some View {
-        HStack (spacing: 8){
+        HStack(spacing: 8) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(item.title)
                     .font(.system(size: 16))
-                    .foregroundColor(.white)
+                    .foregroundColor(.black) // Siyah yazı rengi
+                    .strikethrough(item.isDone, color: .gray) // Tamamlanan görevler için üstü çizili
                 
                 Text(formatDate(item.dueDate))
                     .font(.system(size: 12))
-                    .foregroundColor(.white.opacity(0.7))
+                    .foregroundColor(.black.opacity(0.7)) // Siyah yazı rengi ve biraz opaklık
+                    .strikethrough(item.isDone, color: .gray) // Tamamlanan görevler için üstü çizili
             }
 
             Spacer()
@@ -37,23 +39,33 @@ struct ToDoListItemView: View {
                 }
             }) {
                 Image(systemName: item.isDone ? "checkmark.circle.fill" : "circle")
-                    .foregroundColor(item.isDone ? Color.purple : Color.white)
+                    .foregroundColor(item.isDone ? Color.purple : Color.black)
                     .font(.system(size: 24))
                     .padding()
-                    .background(item.isDone ? Color.white.opacity(0.2) : Color.purple.opacity(0.3))
+                    .background(item.isDone ? Color.black.opacity(0.2) : Color.purple.opacity(0.3)) // Morun opaklığını artırdık
                     .clipShape(Circle())
             }
         }
         .padding()
         .background(
-            LinearGradient(
-                gradient: Gradient(colors: [Color.purple.opacity(0.8), Color.purple]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
+            backgroundView
         )
         .cornerRadius(12)
         .shadow(color: Color.black.opacity(0.2), radius: 4, x: 2, y: 2)
+    }
+
+    @ViewBuilder
+    private var backgroundView: some View {
+        if item.isDone {
+            Color(UIColor.systemGray6) // Açık gri arka plan
+        } else {
+            LinearGradient(
+                gradient: Gradient(colors: [Color.purple.opacity(0.9), Color.purple]), // Mor rengin daha baskın olması için opaklığı artırdık
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .opacity(0.3) // Daha belirgin bir opaklık
+        }
     }
 
     // Tarih formatlama fonksiyonu
@@ -82,5 +94,6 @@ struct ToDoListItemView_Previews: PreviewProvider {
             userId: 123, isDone: false
         )))
         .environmentObject(ToDoListItemViewModel())
+        .previewLayout(.sizeThatFits)
     }
 }

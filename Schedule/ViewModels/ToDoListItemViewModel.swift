@@ -21,10 +21,8 @@ class ToDoListItemViewModel: ObservableObject {
             switch result {
             case .success(let newItem):
                 DispatchQueue.main.async {
-                    // Listeyi güncelleyelim
-                    if let index = self.items.firstIndex(where: { $0.id == newItem.id }) {
-                        self.items[index] = newItem
-                    }
+                    // Listeyi güncelleyelim ve tamamlanan görevleri en sona kaydıralım
+                    self.updateItemInList(newItem)
                     completion(.success(newItem))
                 }
             case .failure(let error):
@@ -32,5 +30,12 @@ class ToDoListItemViewModel: ObservableObject {
             }
         }
     }
-}
 
+    private func updateItemInList(_ updatedItem: ToDoListItem) {
+        if let index = items.firstIndex(where: { $0.id == updatedItem.id }) {
+            items[index] = updatedItem
+            // Tamamlanan görevleri en sona kaydırmak için sıralama
+            items.sort { $0.isDone && !$1.isDone }
+        }
+    }
+}

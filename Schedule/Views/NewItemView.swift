@@ -44,7 +44,7 @@ struct NewItemView: View {
                     if viewModel.canSave {
                         viewModel.save {
                             if let userId = appState.userId {
-                                listViewModel.loadTasks(for: String(userId))
+                                listViewModel.loadTasks(for: (userId))
                             }
                             newItemPresented = false
                         }
