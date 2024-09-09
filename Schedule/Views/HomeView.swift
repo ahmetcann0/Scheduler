@@ -14,13 +14,13 @@ struct HomeView: View {
         TabView {
             ToDoListView()
                 .tabItem {
-                    Label("Home", systemImage: "house")
+                    Label("Home", systemImage: "house").foregroundColor(.black)
                 }
             ProfileView()
                 .tabItem {
-                    Label("Profile", systemImage: "person.circle")
+                    Label("Profile", systemImage: "person.circle").foregroundColor(.black)
                 }
-        }
+        }.accentColor(.purple) 
     }
 }
 

@@ -48,7 +48,8 @@ struct ToDoListView: View {
                 Button {
                     viewModel.showingNewItemView = true
                 } label: {
-                    Image(systemName: "plus")
+                    Image(systemName: "plus"
+                    ).foregroundColor(.black)
                 }
             }
             .sheet(isPresented: $viewModel.showingNewItemView) {

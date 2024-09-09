@@ -16,13 +16,13 @@ struct ToDoListItemView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(item.title)
                     .font(.system(size: 16))
-                    .foregroundColor(.black) // Siyah yazı rengi
-                    .strikethrough(item.isDone, color: .gray) // Tamamlanan görevler için üstü çizili
+                    .foregroundColor(.black)
+                    .strikethrough(item.isDone, color: .gray)
                 
                 Text(formatDate(item.dueDate))
                     .font(.system(size: 12))
-                    .foregroundColor(.black.opacity(0.7)) // Siyah yazı rengi ve biraz opaklık
-                    .strikethrough(item.isDone, color: .gray) // Tamamlanan görevler için üstü çizili
+                    .foregroundColor(.black.opacity(0.7))
+                    .strikethrough(item.isDone, color: .gray) 
             }
 
             Spacer()
@@ -42,7 +42,7 @@ struct ToDoListItemView: View {
                     .foregroundColor(item.isDone ? Color.purple : Color.black)
                     .font(.system(size: 24))
                     .padding()
-                    .background(item.isDone ? Color.black.opacity(0.2) : Color.purple.opacity(0.3)) // Morun opaklığını artırdık
+                    .background(item.isDone ? Color.black.opacity(0.2) : Color.purple.opacity(0.3))
                     .clipShape(Circle())
             }
         }
@@ -57,18 +57,17 @@ struct ToDoListItemView: View {
     @ViewBuilder
     private var backgroundView: some View {
         if item.isDone {
-            Color(UIColor.systemGray6) // Açık gri arka plan
+            Color(UIColor.systemGray6)
         } else {
             LinearGradient(
-                gradient: Gradient(colors: [Color.purple.opacity(0.9), Color.purple]), // Mor rengin daha baskın olması için opaklığı artırdık
+                gradient: Gradient(colors: [Color.purple.opacity(0.9), Color.purple]),
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
-            .opacity(0.3) // Daha belirgin bir opaklık
+            .opacity(0.3)
         }
     }
 
-    // Tarih formatlama fonksiyonu
     private func formatDate(_ dateString: String) -> String {
         let inputDateFormatter = DateFormatter()
         inputDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"

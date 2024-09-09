@@ -46,7 +46,7 @@ class ToDoListViewModel: ObservableObject {
         
         taskService.updateToDoListItem(updatedTask) { result in
             switch result {
-            case .success(let newItem):
+            case .success(_):
                 DispatchQueue.main.async {
                     self.updateTaskLists(with: self.incompleteTasks + self.completedTasks)
                 }
