@@ -85,54 +85,51 @@ class ToDoListItemService {
         }.resume()
     }
     
-    
     func updateToDoListItem(_ item: ToDoListItem, completion: @escaping (Result<ToDoListItem, NetworkError>) -> Void) {
-           guard let url = URL(string: "\(baseURL)/users/\(item.userId)/todos/\(item.id)") else {
-               print("Geçersiz URL")
-               completion(.failure(.badURL))
-               return
-           }
-           
-           var request = URLRequest(url: url)
-           request.httpMethod = "PUT"
-           request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-           
-           do {
-               let encoder = JSONEncoder()
-               let jsonData = try encoder.encode(item)
-               request.httpBody = jsonData
-           } catch {
-               print("JSON encode error: \(error)")
-               completion(.failure(.encodingFailed))
-               return
-           }
-           
-           URLSession.shared.dataTask(with: request) { data, response, error in
-               if let error = error {
-                   print("Update To-Do item error: \(error)")
-                   completion(.failure(.requestFailed))
-                   return
-               }
-               
-               guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                   completion(.failure(.invalidResponse))
-                   return
-               }
-               
-               guard let data = data else {
-                   completion(.failure(.unknown))
-                   return
-               }
-               
-               do {
-                   let updatedItem = try JSONDecoder().decode(ToDoListItem.self, from: data)
-                   completion(.success(updatedItem))
-               } catch {
-                   print("Decoding updated To-Do item error: \(error)")
-                   completion(.failure(.unknown))
-               }
-           }.resume()
-       }
-    
-
+        guard let url = URL(string: "\(baseURL)/users/\(item.userId)/todos/\(item.id)") else {
+            print("Geçersiz URL")
+            completion(.failure(.badURL))
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            let encoder = JSONEncoder()
+            let jsonData = try encoder.encode(item)
+            request.httpBody = jsonData
+        } catch {
+            print("JSON encode error: \(error)")
+            completion(.failure(.encodingFailed))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Update To-Do item error: \(error)")
+                completion(.failure(.requestFailed))
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                completion(.failure(.invalidResponse))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.unknown))
+                return
+            }
+            
+            do {
+                let updatedItem = try JSONDecoder().decode(ToDoListItem.self, from: data)
+                completion(.success(updatedItem))
+            } catch {
+                print("Decoding updated To-Do item error: \(error)")
+                completion(.failure(.unknown))
+            }
+        }.resume()
+    }
 }

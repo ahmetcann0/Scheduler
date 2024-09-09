@@ -15,17 +15,33 @@ struct ToDoListView: View {
         NavigationView {
             VStack {
                 List {
-                    ForEach(viewModel.tasks.indices, id: \.self) { index in
-                        ToDoListItemView(item: $viewModel.tasks[index])
-                            .swipeActions {
-                                Button("Sil") {
-                                    viewModel.deleteTask(viewModel.tasks[index])
+                    // Tamamlanmamış görevler
+                    Section(header: Text("Incomplete Tasks")) {
+                        ForEach(viewModel.incompleteTasks.indices, id: \.self) { index in
+                            ToDoListItemView(item: $viewModel.incompleteTasks[index])
+                                .swipeActions {
+                                    Button("Sil") {
+                                        viewModel.deleteTask(viewModel.incompleteTasks[index])
+                                    }
+                                    .tint(.red)
                                 }
-                                .tint(.red)
-                            }
+                        }
+                    }
+                    
+                    // Tamamlanmış görevler
+                    Section(header: Text("Completed Tasks")) {
+                        ForEach(viewModel.completedTasks.indices, id: \.self) { index in
+                            ToDoListItemView(item: $viewModel.completedTasks[index])
+                                .swipeActions {
+                                    Button("Sil") {
+                                        viewModel.deleteTask(viewModel.completedTasks[index])
+                                    }
+                                    .tint(.red)
+                                }
+                        }
                     }
                 }
-                .listStyle(PlainListStyle())
+                .listStyle(InsetGroupedListStyle())
             }
             .navigationTitle("Tasks")
             .toolbar {
@@ -44,12 +60,11 @@ struct ToDoListView: View {
         .onAppear {
             if let userId = appState.userId {
                 print("Fetching tasks for userId: \(userId)")
-                viewModel.loadTasks(for: String(userId))
+                viewModel.loadTasks(for: userId)
             }
         }
     }
 }
-
 
 struct ToDoListView_Previews: PreviewProvider {
     static var previews: some View {
