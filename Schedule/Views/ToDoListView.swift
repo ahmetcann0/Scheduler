@@ -15,6 +15,7 @@ struct ToDoListView: View {
         NavigationView {
             VStack {
                 List {
+                    // Tamamlanmamış görevler
                     Section(header: Text("Incomplete Tasks")) {
                         ForEach(viewModel.incompleteTasks.indices, id: \.self) { index in
                             ToDoListItemView(item: $viewModel.incompleteTasks[index])
@@ -27,6 +28,7 @@ struct ToDoListView: View {
                         }
                     }
                     
+                    // Tamamlanmış görevler
                     Section(header: Text("Completed Tasks")) {
                         ForEach(viewModel.completedTasks.indices, id: \.self) { index in
                             ToDoListItemView(item: $viewModel.completedTasks[index])

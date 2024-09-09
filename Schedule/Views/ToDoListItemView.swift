@@ -17,13 +17,12 @@ struct ToDoListItemView: View {
                 Text(item.title)
                     .font(.system(size: 16))
                     .foregroundColor(.black)
-                    .strikethrough(item.isDone, color: .black)
+                    .strikethrough(item.isDone, color: .gray)
                 
                 Text(formatDate(item.dueDate))
                     .font(.system(size: 12))
-                    .foregroundColor(item.isDone ? .black.opacity(0.8) : .black)
-                    .strikethrough(item.isDone, color: .black)
-
+                    .foregroundColor(.black.opacity(0.7))
+                    .strikethrough(item.isDone, color: .gray) 
             }
 
             Spacer()
@@ -40,10 +39,10 @@ struct ToDoListItemView: View {
                 }
             }) {
                 Image(systemName: item.isDone ? "checkmark.circle.fill" : "circle")
-                    .foregroundColor(item.isDone ? Color.white : Color.black)
+                    .foregroundColor(item.isDone ? Color.purple : Color.black)
                     .font(.system(size: 24))
                     .padding()
-                    .background(item.isDone ? Color.black.opacity(0.3) : Color.purple.opacity(0.3))
+                    .background(item.isDone ? Color.black.opacity(0.2) : Color.purple.opacity(0.3))
                     .clipShape(Circle())
             }
         }
@@ -58,7 +57,7 @@ struct ToDoListItemView: View {
     @ViewBuilder
     private var backgroundView: some View {
         if item.isDone {
-            Color(UIColor.systemGray2)
+            Color(UIColor.systemGray6)
         } else {
             LinearGradient(
                 gradient: Gradient(colors: [Color.purple.opacity(0.9), Color.purple]),
