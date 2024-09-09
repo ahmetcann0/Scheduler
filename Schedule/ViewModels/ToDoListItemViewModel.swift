@@ -14,14 +14,11 @@ class ToDoListItemViewModel: ObservableObject {
         var updatedItem = item
         updatedItem.isDone.toggle()
 
-        // İstemci tarafında güncellemeyi simüle ediyoruz
-        // Gerçek güncelleme için backend'e PUT isteği gönderilmelidir.
-        // Bu örnek kodda backend'e istekte bulunmayı simüle edelim:
+        
         ToDoListItemService.shared.updateToDoListItem(updatedItem) { result in
             switch result {
             case .success(let newItem):
                 DispatchQueue.main.async {
-                    // Listeyi güncelleyelim ve tamamlanan görevleri en sona kaydıralım
                     self.updateItemInList(newItem)
                     completion(.success(newItem))
                 }
@@ -34,7 +31,6 @@ class ToDoListItemViewModel: ObservableObject {
     private func updateItemInList(_ updatedItem: ToDoListItem) {
         if let index = items.firstIndex(where: { $0.id == updatedItem.id }) {
             items[index] = updatedItem
-            // Tamamlanan görevleri en sona kaydırmak için sıralama
             items.sort { $0.isDone && !$1.isDone }
         }
     }
