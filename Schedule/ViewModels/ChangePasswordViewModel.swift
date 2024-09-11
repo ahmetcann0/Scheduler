@@ -14,7 +14,7 @@ class ChangePasswordViewModel: ObservableObject {
     @Published var alertTitle = ""
     @Published var alertMessage = ""
 
-    private let baseURL = "http://localhost:8080/users/change-password"
+    private let baseURL = "http://192.168.1.22:8080/users/change-password"
     
     func changePassword(userId: Int64?, token: String, completion: @escaping () -> Void) {
         guard let userId = userId else {

@@ -9,7 +9,7 @@ import Foundation
 
 class ToDoListItemService {
     static let shared = ToDoListItemService()
-    private let baseURL = "http://localhost:8080"
+    private let baseURL = "http://192.168.1.22:8080" //abc
 
     private init() { }
 

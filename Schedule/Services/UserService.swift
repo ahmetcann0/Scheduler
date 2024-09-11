@@ -22,7 +22,7 @@ struct LoginResponse: Codable {
 
 class UserService {
     static let shared = UserService()
-    private let baseURL = "http://localhost:8080/users"
+    private let baseURL = "http://192.168.1.22:8080/users" //abc
 
     private init() { }
 
