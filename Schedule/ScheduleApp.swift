@@ -6,17 +6,28 @@
 //
 
 import SwiftUI
+import FirebaseCore
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+  func application(_ application: UIApplication,
+                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+    FirebaseApp.configure()
+    return true
+  }
+}
 
 @main
 struct ScheduleApp: App {
-    @StateObject private var appState = AppState.shared
-    @StateObject private var toDoListItemViewModel = ToDoListItemViewModel() // Burada model örneğini oluşturun
+  @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-                .environmentObject(appState)
-                .environmentObject(toDoListItemViewModel) // Modeli burada sağlayın
-        }
+  @StateObject private var appState = AppState.shared
+  @StateObject private var toDoListItemViewModel = ToDoListItemViewModel()
+
+  var body: some Scene {
+    WindowGroup {
+      ContentView()
+        .environmentObject(appState)
+        .environmentObject(toDoListItemViewModel)
     }
+  }
 }
