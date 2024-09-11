@@ -8,12 +8,12 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var appState: AppState
-    @EnvironmentObject var toDoListItemViewModel: ToDoListItemViewModel // Burada da sağlanmalı
+    @EnvironmentObject var toDoListItemViewModel: ToDoListItemViewModel 
 
     var body: some View {
         if appState.isUserLoggedIn {
             HomeView()
-                .environmentObject(toDoListItemViewModel) // Burada da sağlanmalı
+                .environmentObject(toDoListItemViewModel)
         } else {
             LoginView()
         }
