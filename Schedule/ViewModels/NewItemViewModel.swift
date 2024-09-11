@@ -43,7 +43,7 @@ class NewItemViewModel: ObservableObject {
             userId: Int(userId), isDone: false
         )
 
-        guard let url = URL(string: "http://localhost:8080/users/\(userId)/todos") else {
+        guard let url = URL(string: "http://192.168.1.22:8080/users/\(userId)/todos") else {
             print("Invalid URL")
             return
         }
